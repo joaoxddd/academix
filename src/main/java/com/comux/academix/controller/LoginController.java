@@ -1,18 +1,24 @@
 package com.comux.academix.controller;
 
+import org.apache.catalina.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/login")
 public class LoginController {
 
-	@GetMapping
-	public ModelAndView login() {
-		ModelAndView mv  = new ModelAndView("login/login.html");
-		return mv;
+	@GetMapping("/login")
+	public String login(@AuthenticationPrincipal User user) {
+		if (user != null) {
+			return "redirect:/home";
+		}
+		return "login/login";
+	}
+	
+	@GetMapping("/403")
+	public String acessoNegado() {
+		return "403";
 	}
 
 }
