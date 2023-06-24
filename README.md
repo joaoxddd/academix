@@ -1,2 +1,2 @@
-# academix
-Sitema monolítico baseado em Java utilizando Spring e Thymeleaf.
+# maraca
+Projeto desenvolvido entre a parceria Idelco, IFCE e Faifce
