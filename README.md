@@ -1,2 +1,3 @@
-# maraca
-Projeto desenvolvido entre a parceria Idelco, IFCE e Faifce
+# Academix
+Projeto desenvolvido para a Disciplina de Tópicos Java Web.
+Sistema baseado em Java e Thymeleaf de caratér monolítico.
