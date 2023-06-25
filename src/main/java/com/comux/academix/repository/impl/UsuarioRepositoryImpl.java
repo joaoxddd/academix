@@ -3,12 +3,17 @@ package com.comux.academix.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.comux.academix.model.Usuario;
 import com.comux.academix.repository.queries.UsuarioRepositoryQueries;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+@Repository
+@Transactional
 public class UsuarioRepositoryImpl implements UsuarioRepositoryQueries{
 	
 	@PersistenceContext
@@ -30,4 +35,21 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryQueries{
 				.setParameter("usuario", usuario)
 				.getResultList();
 	}
+	
+	@Override
+	public List<Usuario> buscarPorNome(String nome) {
+	    return manager.createQuery(
+	            "select u from Usuario u where lower(u.nome) like lower(:nome)", Usuario.class)
+	            .setParameter("nome", "%" + nome + "%")
+	            .getResultList();
+	}
+
+	@Override
+	public Usuario buscarComGrupos(Long codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+
 }

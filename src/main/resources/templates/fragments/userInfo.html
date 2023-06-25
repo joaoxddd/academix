@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<body>
+    <div th:fragment="userInfo" id="user-info">
+        <p class="text" th:text="'User: ' + ${usuarioSistema.nome}">Usuário</p>
+        <a href="/logout">
+		   <i class="fas fa-sign-out-alt"></i> Logout
+		</a>
+    </div>
+</body>
+</html>

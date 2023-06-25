@@ -11,7 +11,7 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(@AuthenticationPrincipal User user) {
 		if (user != null) {
-			return "redirect:/home";
+			return "redirect:/";
 		}
 		return "login/login";
 	}

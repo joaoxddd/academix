@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="menuLateral" id="side-menu">
+	            <h2>Menu</h2>
+				<div>
+				    <a th:if="${usuarioSistema.grupos[0].nome == 'Administrador'}" href="/usuarios">Usuários</a>
+				</div>
+
+	            <div>
+	                <a href="/turmas">Turmas</a>
+	            </div>
+        </div>
+    </body>
+</html>

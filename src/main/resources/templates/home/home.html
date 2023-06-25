@@ -24,6 +24,20 @@
             position: fixed;
         }
 
+        #side-menu a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        #side-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
         #main-content {
             margin-left: 220px;
             padding: 30px;
@@ -35,8 +49,18 @@
             justify-content: center;
         }
 
-        #user-header {
-            margin-bottom: 20px;
+        #user-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        #user-info h2 {
+            margin: 0;
         }
 
         h2 {
@@ -45,22 +69,9 @@
     </style>
 </head>
 <body>
-    <div id="side-menu">
-        <h2>Menu</h2>
-        <div>
-            <a href="#">Link 1</a>
-        </div>
-        <div>
-            <a href="#">Link 2</a>
-        </div>
-        <div>
-            <a href="#">Link 3</a>
-        </div>
-    </div>
+	<div th:replace="fragments/menuLateral :: menuLateral"></div>
+	<div th:replace="fragments/userInfo :: userInfo(usuarioSistema=${usuarioSistema})"></div>
     <div id="main-content">
-        <div id="user-header">
-            <h2>Nome do Usuário</h2>
-        </div>
         <div>
             <!-- Conteúdo principal aqui -->
         </div>

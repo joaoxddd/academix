@@ -8,9 +8,13 @@ import com.comux.academix.model.Usuario;
 
 public interface UsuarioRepositoryQueries {
 	
-	Optional<Usuario> porEmail(String email);
+	public Optional<Usuario> porEmail(String email);
 	
-	List<String> permissoes(Usuario usuario);
+	public List<String> permissoes(Usuario usuario);
+	
+	public Usuario buscarComGrupos(Long codigo);
+
+	List<Usuario> buscarPorNome(String nome);
 	
 	//List<Usuario> consultarUsuario(String nome);
 	

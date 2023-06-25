@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #side-menu {
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+        }
+
+        #side-menu a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        #side-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        #main-content {
+            margin-left: 220px;
+            padding: 30px;
+            width: calc(100% - 220px);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #user-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        #user-info h2 {
+            margin: 0;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+               div {
+            margin-right: 20px;
+        }
+        
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.1);
+            margin-top: -60px;
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        form button {
+            background: #009688;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        form button:hover {
+            background: #007d65;
+        }
+
+        table {
+			margin-left: 60px;
+            width: 70%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        /* Estilos personalizados para botões */
+        .btn-edit {
+            background-color: blue;
+        }
+
+        .btn-delete {
+            background-color: red;
+        }
+
+        .btn-new {
+			margin-left: 60px;
+			margin-top: 30px;
+			margin-bottom: 30px;
+            background-color: #4CAF50;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/menuLateral :: menuLateral(usuarioSistema=${usuarioSistema})"></div>
+    <div th:replace="fragments/userInfo :: userInfo(usuarioSistema=${usuarioSistema})"></div>
+    <div id="main-content" style="align-items: flex-start; justify-content: flex-start;">
+    <button class="btn-new" onclick="window.location.href='usuarios/novo'">Novo Usuário</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Grupo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario : ${lista}">
+                <td th:text="${usuario.nome}">Nome do Usuário</td>
+                <td th:text="${usuario.grupos[0].nome}">Nome do Grupo</td>
+                <td>
+                    <button class="btn-edit" th:onclick="'editarUsuario(\'' + ${usuario.codigo} + '\')'">Editar</button>
+                    <button class="btn-delete" th:onclick="'excluirUsuario(\'' + ${usuario.codigo} + '\')'">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		function editarUsuario(codigo) {
+		    window.location.href = '/usuarios/' + codigo;
+		}
+	
+		function excluirUsuario(codigo) {
+		    if (confirm('Deseja realmente excluir o usuário?')) {
+		        $.ajax({
+		            url: '/usuarios/' + codigo,
+		            type: 'DELETE',
+		            headers: {
+		                'X-CSRF-TOKEN': '${_csrf.token}'
+		            },
+		            success: function(result) {
+		                // Do something with the result
+		                location.reload();
+		            }
+		        });
+		    }
+		}
+	</script>
+</body>
+</html>
